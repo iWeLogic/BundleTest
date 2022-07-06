@@ -27,5 +27,4 @@ class SecondFragment : Fragment() {
             view.findViewById<TextView>(R.id.text).text = testObject.text
         }
     }
-
 }

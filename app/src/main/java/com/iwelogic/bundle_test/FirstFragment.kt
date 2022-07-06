@@ -1,9 +1,7 @@
 package com.iwelogic.bundle_test
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -14,12 +12,16 @@ import androidx.navigation.fragment.findNavController
 
 class FirstFragment : Fragment() {
 
-    val testObject = TestObject("007")
+    private lateinit var testObject: TestObject
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        testObject = savedInstanceState?.getParcelable("FirstFragmentValue") ?: TestObject("007")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_first, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,5 +31,8 @@ class FirstFragment : Fragment() {
         }
     }
 
-
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable("FirstFragmentValue", testObject)
+    }
 }
